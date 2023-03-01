@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { useEffect } from "react";
+import { Routes, Route } from "react-router";
+import Home from "./pages/Home/Home";
+import Detail from "./pages/Home/Products/Product/Detail/Detail";
+import { useAppDispatch } from "./redux/redux-hooks/redux-hooks";
+import { fetchProducts } from "./redux/slices/thunk/fetchProducts";
+import { url } from "./constants/url";
 function App() {
+  const dispatch = useAppDispatch();
+  const setData = async () => {
+    await dispatch(fetchProducts(url));
+  };
+  useEffect(() => {
+    setData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path=":id" element={<Detail />} />
+      </Routes>
     </div>
   );
 }
