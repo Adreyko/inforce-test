@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.59cf0233.css","mappings":"AAAA,KAEI,YAAa,CADb,cAAe,CAEf,kBACJ,CAEA,YACI,eACJ","sources":["index.css"],"sourcesContent":[".img{\r\n    max-width: 100%;\r\n    height: 200px;\r\n    object-fit: contain;\r\n}\r\n\r\n.detail_Img{\r\n    max-width: 500px;\r\n}"],"names":[],"sourceRoot":""}
