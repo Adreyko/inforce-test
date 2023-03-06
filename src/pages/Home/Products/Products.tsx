@@ -6,11 +6,25 @@ import Product from "./Product/Product";
 
 const Products = () => {
   const products = useAppSelector((products) => products.products.products);
+  const sortOrder = useAppSelector((prod) => prod.products.sortOrder);
 
-  const sortedProducts = [...products].sort((a: IProduct, b: IProduct) =>
-    a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+  const sortedProductsByProperties = [...products].sort(
+    (a: IProduct, b: IProduct) => {
+      if (sortOrder === "asc") {
+        return a.name > b.name ? 1 : -1;
+      } else if (sortOrder === "desc") {
+        return b.name > a.name ? 1 : -1;
+      } else if (sortOrder === "largest") {
+        return a.count > b.count ? -1 : a.count < b.count ? 1 : 0;
+      } else if (sortOrder === "least") {
+        return a.count > b.count ? 1 : a.count < b.count ? -1 : 0;
+      } else {
+        return 0;
+      }
+    }
   );
-  const productsEl = sortedProducts.map((product) => (
+
+  const productsEl = sortedProductsByProperties.map((product) => (
     <Product key={product.id} product={product} />
   ));
 
