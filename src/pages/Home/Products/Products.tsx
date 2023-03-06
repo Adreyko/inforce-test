@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import { memo } from "react";
+import sortEnum from "../../../constants/sortVariants";
 import { IProduct } from "../../../intarfaces/IProduct";
 import { useAppSelector } from "../../../redux/redux-hooks/redux-hooks";
 import Product from "./Product/Product";
@@ -10,17 +11,13 @@ const Products = () => {
 
   const sortedProductsByProperties = [...products].sort(
     (a: IProduct, b: IProduct) => {
-      if (sortOrder === "asc") {
-        return a.name > b.name ? 1 : -1;
-      } else if (sortOrder === "desc") {
-        return b.name > a.name ? 1 : -1;
-      } else if (sortOrder === "largest") {
+      if (sortOrder === sortEnum.ASC) return a.name > b.name ? 1 : -1;
+      if (sortOrder === sortEnum.DESC) return b.name > a.name ? 1 : -1;
+      if (sortOrder === sortEnum.LARGEST)
         return a.count > b.count ? -1 : a.count < b.count ? 1 : 0;
-      } else if (sortOrder === "least") {
+      if (sortOrder === sortEnum.LEAST)
         return a.count > b.count ? 1 : a.count < b.count ? -1 : 0;
-      } else {
-        return 0;
-      }
+      return 0;
     }
   );
 
